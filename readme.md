@@ -1,0 +1,1 @@
+This is primarily for personal use. However, I would be delighted if anyone found any use for these. Please feel free to use, modify, learn from, make fun of, or laugh at this as you see fit. Also feel free to let me know if you have any helpful suggestions.
