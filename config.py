@@ -86,7 +86,7 @@ keys = [
         desc="Spawn a command using a prompt widget"),
 
     # Custom launcher keybinds
-    Key([mod], "b", lazy.spawn("firefox"), desc="Launch browser"),
+    Key([mod], "b", lazy.spawn("librewolf"), desc="Launch browser"),
     Key([mod], "e", lazy.spawn("emacsclient -c -a 'emacs' "), desc="Launch emacs"),
     Key([mod], "d", lazy.spawn("discord"), desc="Launch discord"),
     Key([mod], "f", lazy.spawn("pcmanfm"), desc="Launch files"),
@@ -111,11 +111,11 @@ for i in groups:
     ])
 
 layouts = [
-    layout.Columns(border_focus='#8FBCBB', border_normal='#4C566A', border_focus_stack=['#d75f5f', '#8f3d3d'], border_width=5, insert_position=1),
+    # layout.Columns(border_focus='#8FBCBB', border_normal='#4C566A', border_focus_stack=['#d75f5f', '#8f3d3d'], border_width=5, insert_position=1),
+    layout.Bsp(border_focus='#8FBCBB', border_normal='#4C566A', border_width=5, fair=False),
     layout.Max(),
     # Try more layouts by unleashing below layouts.
     # layout.Stack(num_stacks=2),
-    # layout.Bsp(),
     # layout.Matrix(),
     # layout.MonadTall(),
     # layout.MonadWide(),
@@ -149,30 +149,6 @@ screens = [
     Screen(
         top=bar.Bar(
             [
-                widget.CurrentLayout(background="#2E3440", foreground="#ECEFF4"),
-
-                widget.GroupBox(
-                    background="2E3440",
-                    block_highlight_text_color="#A3BE8C",
-                    active="#ECEFF4",
-                    inactive="#4C566A",
-                    this_current_screen_border="5E81AC",
-                    highlight_method="block",
-                    other_current_screen_border="#4C566A"
-                ),
-
-                widget.Prompt(background="8FBCBB", foreground="#2E3440"),
-                widget.WindowName(background="#2E3440", foreground="#ECEFF4"),
-                widget.Chord(
-                    chords_colors={
-                        'launch': ("#ff0000", "#ffffff"),
-                    },
-                    name_transform=lambda name: name.upper(),
-                ),
-                # widget.TextBox("default config", name="default"),
-                #widget.TextBox("Press &lt;M-r&gt; to spawn", foreground="#d75f5f"),
-                widget.Systray(background="#ECEFF4"),
-
                 widget.Memory(
                     background="#8FBCBB",
                     foreground="#2E3440"
@@ -190,6 +166,43 @@ screens = [
 
                 widget.Net(background="#88C0D0", foreground="#2E3440"),
 
+                widget.Spacer(
+                    length = bar.STRETCH,
+                    background="2E3440"
+                ),
+
+
+                widget.GroupBox(
+                    background="2E3440",
+                    block_highlight_text_color="#A3BE8C",
+                    active="#ECEFF4",
+                    inactive="#4C566A",
+                    this_current_screen_border="5E81AC",
+                    highlight_method="block",
+                    other_current_screen_border="#4C566A"
+                ),
+
+                widget.CurrentLayout(background="#2E3440", foreground="#ECEFF4"),
+
+                widget.Prompt(background="8FBCBB", foreground="#2E3440"),
+                #widget.WindowName(background="#2E3440", foreground="#ECEFF4"),
+
+                widget.Spacer(
+                    length = bar.STRETCH,
+                    background="2E3440"
+                ),
+
+                widget.Chord(
+                    chords_colors={
+                        'launch': ("#ff0000", "#ffffff"),
+                    },
+                    name_transform=lambda name: name.upper(),
+                ),
+                # widget.TextBox("default config", name="default"),
+                #widget.TextBox("Press &lt;M-r&gt; to spawn", foreground="#d75f5f"),
+                widget.Systray(background="#ECEFF4"),
+
+
                 sep(),
 
                 widget.Clock(background="#5E81AC", foreground="2E3440", format='%a %d-%m-%Y'),
@@ -206,6 +219,9 @@ screens = [
 
                 sep(),
 
+                widget.PulseVolume(background="#88C0D0", foreground="2E3440", limit_max_volume='True'),
+
+                sep(),
                 # widget.QuickExit(),
             ],
             24,
