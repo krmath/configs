@@ -78,7 +78,7 @@ keys = [
 
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
-    Key([mod], "q", lazy.window.kill(), desc="Kill focused window"),
+    Key([mod], "w", lazy.window.kill(), desc="Kill focused window"),
 
     Key([mod, "control"], "r", lazy.restart(), desc="Restart Qtile"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
@@ -136,7 +136,7 @@ def init_colors():
 
 
 widget_defaults = dict(
-    font='meslo',
+    font='Fira Sans',
     fontsize=16,
     padding=3,
 )
@@ -149,9 +149,20 @@ screens = [
     Screen(
         top=bar.Bar(
             [
+                sep(),
+
+                widget.DF(
+                    background="#5E81AC",
+                    foreground="#2E3440",
+                    visible_on_warn=False
+                ),
+
+                sep(),
+
                 widget.Memory(
                     background="#8FBCBB",
-                    foreground="#2E3440"
+                    foreground="#2E3440",
+                    format=' {MemUsed: .0f}{mm}/{MemTotal: .0f}{mm}'
                 ),
 
                 sep(),
@@ -159,12 +170,18 @@ screens = [
                 widget.CPU(
                     background="#5E81AC",
                     foreground="#2E3440",
-                    format='CPU {load_percent}%'
+                    format=' {load_percent}%'
                 ),
 
                 sep(),
 
-                widget.Net(background="#88C0D0", foreground="#2E3440"),
+                widget.Net(
+                    background="#88C0D0",
+                    foreground="#2E3440",
+                    format=' ↓{down} ↑{up}'
+                ),
+
+                widget.Wlan(),
 
                 widget.Spacer(
                     length = bar.STRETCH,
@@ -231,6 +248,11 @@ screens = [
     Screen(
         top=bar.Bar(
             [
+                widget.Spacer(
+                    length = bar.STRETCH,
+                    background="2E3440"
+                ),
+
                 widget.CurrentLayout(background="#2E3440", foreground="#ECEFF4"),
 
                 widget.GroupBox(
@@ -243,50 +265,10 @@ screens = [
                     other_current_screen_border="#4C566A"
                 ),
 
-                widget.Prompt(background="8FBCBB", foreground="#2E3440"),
-                widget.WindowName(background="#2E3440", foreground="#ECEFF4"),
-                widget.Chord(
-                    chords_colors={
-                        'launch': ("#ff0000", "#ffffff"),
-                    },
-                    name_transform=lambda name: name.upper(),
+                widget.Spacer(
+                    length = bar.STRETCH,
+                    background="2E3440"
                 ),
-                # widget.TextBox("default config", name="default"),
-                #widget.TextBox("Press &lt;M-r&gt; to spawn", foreground="#d75f5f"),
-                widget.Systray(background="#ECEFF4"),
-
-                widget.Memory(
-                    background="#8FBCBB",
-                    foreground="#2E3440"
-                ),
-
-                sep(),
-
-                widget.CPU(
-                    background="#5E81AC",
-                    foreground="#2E3440",
-                    format='CPU {load_percent}%'
-                ),
-
-                sep(),
-
-                widget.Net(background="#88C0D0", foreground="#2E3440"),
-
-                sep(),
-
-                widget.Clock(background="#5E81AC", foreground="2E3440", format='%a %d-%m-%Y'),
-
-                sep(),
-
-                widget.Clock(background="#88C0D0", foreground="2E3440", format='%H:%M'),
-
-                sep(),
-
-                widget.Battery(background="#5E81AC", foreground="#2E3440", format='{percent:2.0%}'),
-
-                sep(),
-
-                # widget.QuickExit(),
             ],
             24,
         ),
